@@ -6,8 +6,8 @@ def ToBinary(number):
     bin_num = str(bin(number).replace("0b", ""))
 
     for i in bin_num:
-        bin_arr.append((i))
+        bin_arr.append(int(i))
 
     return bin_arr
 
-#print(ToBinary(987654321))
+print(ToBinary(987654321))
