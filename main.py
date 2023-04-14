@@ -87,7 +87,17 @@ def SwitchPosition(array):
 
     return SW_10x_index, SW_10x_pos, SW_20x_index, SW_20x_pos
     
-    
+def SwPosToPXI(SwitchPosition):
+    SW_10x_index = SwitchPosition[0] 
+    SW_10x_pos = SwitchPosition[1]
+    SW_20x_index = SwitchPosition[2]
+    SW_20x_pos = SwitchPosition[3]
+
+    PXI_slot_1 = str(bin(SW_10x_pos - 1).replace("0b", ""))
+
+    return PXI_slot_1
+
+
 def ToBinary(number):
     bin_arr = []
     bin_num = str(bin(number).replace("0b", ""))
@@ -99,7 +109,7 @@ def ToBinary(number):
 
 
 def Main(number):
-    print(SwitchPosition(ParseJSON(data)[1]))
+    print(SwPosToPXI(SwitchPosition(ParseJSON(data)[1])))
     return number
 
 Main(0)
