@@ -1,7 +1,7 @@
 import json
 import math
 
-jsonFile = '{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":1, "y":3}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
+jsonFile = '{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":4, "y":0}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
 data = json.loads(jsonFile)
 
 
@@ -73,7 +73,7 @@ def SwitchPosition(array):
         case 8:
             SW_10x_index = 108
 
-    SW_10x_pos = column - 4 * math.floor(column/4)
+    SW_10x_pos = (column - 1) % 4
     match row:
         case 1:
             SW_10x_pos += 4
@@ -82,18 +82,19 @@ def SwitchPosition(array):
         case 3:
             SW_10x_pos += 12
 
-    SW_20x_index = column - 4 * math.floor(column/4) + row * 4 + 201
-    SW_20x_pos = math.floor(column/4) + 1
+    SW_20x_index = (column-1) % 4 + row * 4 + 200
+    SW_20x_pos = (column-1) // 4 + 1
 
     return SW_10x_index, SW_10x_pos, SW_20x_index, SW_20x_pos
-    
+
+
 def SwPosToPXI(SwitchPosition):
     SW_10x_index = SwitchPosition[0] 
     SW_10x_pos = SwitchPosition[1]
     SW_20x_index = SwitchPosition[2]
     SW_20x_pos = SwitchPosition[3]
 
-    PXI_slot_1 = str(bin(SW_10x_pos - 1).replace("0b", ""))
+    PXI_slot_1 = bin(SW_10x_pos - 1)[-4:]
 
     return PXI_slot_1
 
@@ -109,7 +110,7 @@ def ToBinary(number):
 
 
 def Main(number):
-    print(SwPosToPXI(SwitchPosition(ParseJSON(data)[1])))
+    print(SwitchPosition(ParseJSON(data)[1]))
     return number
 
 Main(0)
