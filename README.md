@@ -36,6 +36,6 @@ Program do zarządzania pomiarami OTA
 - SwitchPosition - array of position of 4 switches from previous function
 
 ### Return:
-- [x] PXI_slot_1 - 1 of 3 PXI slots
-- [ ] PXI_slot_2 - as above
-- [ ] PXI_slot_3 - as above
+- PXI_slot_1 - 1 of 3 PXI slots
+- PXI_slot_2 - as above
+- PXI_slot_3 - as above

@@ -89,14 +89,24 @@ def SwitchPosition(array):
 
 
 def SwPosToPXI(SwitchPosition):
+    PXI_slot_1 = '00000000000000000000000000000000'
+    PXI_slot_2 = '00000000000000000000000000000000'
+    PXI_slot_3 = '00000000000000000000000000000000'
     SW_10x_index = SwitchPosition[0] 
     SW_10x_pos = SwitchPosition[1]
     SW_20x_index = SwitchPosition[2]
     SW_20x_pos = SwitchPosition[3]
+    i1 = (SW_10x_index - 101) * 4
+    i2 = (SW_20x_index - 201) * 4
+    i3 = (SW_20x_index - 209) * 4
 
-    PXI_slot_1 = bin(SW_10x_pos - 1)[-4:]
+    if (SW_20x_index - 200) > 8:
+        PXI_slot_3[i3:i3+4].replace("0000", str(bin(SW_20x_pos - 1)[-4:].replace("0b", "")))
+    else:
+        PXI_slot_2[i2:i2+4].replace("0000", str(bin(SW_20x_pos - 1)[-4:].replace("0b", "")))
+    PXI_slot_1[i1:i1+4].replace("0000", str(bin(SW_10x_pos - 1)[-4:].replace("0b", "")))
 
-    return PXI_slot_1
+    return [PXI_slot_1, PXI_slot_2, PXI_slot_3]
 
 
 def ToBinary(number):
@@ -109,8 +119,11 @@ def ToBinary(number):
     return bin_arr
 
 
-def Main(number):
-    print(SwitchPosition(ParseJSON(data)[1]))
-    return number
+def Main():
+    cords = ParseJSON(data)
+    SWpos = SwitchPosition(cords[1])
+    PXI_array = SwPosToPXI(SWpos)
 
-Main(0)
+    return PXI_array
+
+#Main(0)
