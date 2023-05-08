@@ -42,7 +42,7 @@ def ParseJSON(data):
     #print(array_N)
     #print(array_P)
 
-    return delay, array_N, array_P
+    return [delay, array_N, array_P]
 
 
 def SwitchPosition(array):
@@ -85,13 +85,17 @@ def SwitchPosition(array):
     SW_20x_index = (column-1) % 4 + row * 4 + 200
     SW_20x_pos = (column-1) // 4 + 1
 
-    return SW_10x_index, SW_10x_pos, SW_20x_index, SW_20x_pos
+    return [SW_10x_index, SW_10x_pos, SW_20x_index, SW_20x_pos]
 
 
 def SwPosToPXI(SwitchPosition):
-    PXI_slot_1 = '00000000000000000000000000000000'
-    PXI_slot_2 = '00000000000000000000000000000000'
-    PXI_slot_3 = '00000000000000000000000000000000'
+    PXI_slot_1 = []
+    PXI_slot_2 = [] 
+    PXI_slot_3 = []
+    for i in range(32):
+        PXI_slot_1.append('0')
+        PXI_slot_2.append('0')
+        PXI_slot_3.append('0')
     SW_10x_index = SwitchPosition[0] 
     SW_10x_pos = SwitchPosition[1]
     SW_20x_index = SwitchPosition[2]
@@ -101,10 +105,14 @@ def SwPosToPXI(SwitchPosition):
     i3 = (SW_20x_index - 209) * 4
 
     if (SW_20x_index - 200) > 8:
-        PXI_slot_3[i3:i3+4].replace("0000", str(bin(SW_20x_pos - 1)[-4:].replace("0b", "")))
+        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos - 1)[-4:].replace("0b", "")
     else:
-        PXI_slot_2[i2:i2+4].replace("0000", str(bin(SW_20x_pos - 1)[-4:].replace("0b", "")))
-    PXI_slot_1[i1:i1+4].replace("0000", str(bin(SW_10x_pos - 1)[-4:].replace("0b", "")))
+        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos - 1)[-4:].replace("0b", "")
+    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos - 1)[-4:].replace("0b", "")
+
+    PXI_slot_1 = "".join(PXI_slot_1)
+    PXI_slot_2 = "".join(PXI_slot_2)
+    PXI_slot_3 = "".join(PXI_slot_3)
 
     return [PXI_slot_1, PXI_slot_2, PXI_slot_3]
 
@@ -126,4 +134,6 @@ def Main():
 
     return PXI_array
 
-#Main(0)
+#print(Main())
+#print(SwitchPosition(['N1', 3, 8]))
+print(SwPosToPXI([103, 14, 207, 14]))
