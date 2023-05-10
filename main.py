@@ -105,14 +105,14 @@ def SwPosToPXI(SwitchPosition):
     i3 = (SW_20x_index - 209) * 4
 
     if (SW_20x_index - 200) > 8:
-        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos - 1)[-4:].replace("0b", "")
+        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos - 1)[-4:]
     else:
-        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos - 1)[-4:].replace("0b", "")
-    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos - 1)[-4:].replace("0b", "")
+        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos - 1)[-4:]
+    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos - 1)[-4:]
 
-    PXI_slot_1 = "".join(PXI_slot_1)
-    PXI_slot_2 = "".join(PXI_slot_2)
-    PXI_slot_3 = "".join(PXI_slot_3)
+    PXI_slot_1 = int("".join(PXI_slot_1),2)
+    PXI_slot_2 = int("".join(PXI_slot_2),2)
+    PXI_slot_3 = int("".join(PXI_slot_3),2)
 
     return [PXI_slot_1, PXI_slot_2, PXI_slot_3]
 
@@ -136,4 +136,4 @@ def Main():
 
 #print(Main())
 #print(SwitchPosition(['N1', 3, 8]))
-print(SwPosToPXI([103, 14, 207, 14]))
+print(SwPosToPXI([107, 14, 216, 14]))

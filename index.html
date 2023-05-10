@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8"> 
+        <title>WrOTA</title> 
+
+        <style>
+            table{border-collapse:collapse}
+            th {
+                background: #aaa;
+            }
+            td{
+                width:10px; 
+                height:10px; 
+                border:1px solid grey; 
+                text-align: center;
+            }
+
+        </style>
+   
+</head>
+    <body>
+
+      <form>
+        <select name="layer">
+          <option>1. 1_1 </option>
+          <option>2. 2_1</option>
+          <option>3. 1_2</option>
+          <option>4. 2_2</option>
+          <option>5. 1_3</option>
+          <option>6. 2_3</option>
+          <option>7. 1_4</option>
+          <option>8. 2_4</option>
+        </select>
+      </form>
+      <table>
+        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        
+
+    </table>
+    <script>
+      var tab=document.getElementsByTagName('table')[0];
+      for(let i=1;i<=10;i++)
+      {
+      tab.rows[0].cells[i].innerHTML=i;
+      tab.rows[i].cells[0].innerHTML=i;
+      }
+      </script>
+      
+      
+    <!--
+      <table>
+    <tr>
+      <td>
+        <a href="#">Kliknij mnie!</a>
+        <br>
+        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
+      </td>
+      <td>
+        <a href="#">Kliknij mnie!</a>
+        <br>
+        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="#">Kliknij mnie!</a>
+        <br>
+        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
+      </td>
+      <td>
+        <a href="#">Kliknij mnie!</a>
+        <br>
+        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
+      </td>
+    </tr>
+  </table> --> 
+  </body>
+  </html>
