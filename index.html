@@ -5,13 +5,13 @@
         <title>WrOTA</title> 
 
         <style>
-            table{border-collapse:collapse}
+            table{border-collapse:collapse; width: 100%}
             th {
                 background: #aaa;
             }
             td{
-                width:10px; 
-                height:10px; 
+                /*width:30px; 
+                height:30px; */
                 border:1px solid grey; 
                 text-align: center;
             }
@@ -22,6 +22,7 @@
     <body>
 
       <form>
+        Layer
         <select name="layer">
           <option>1. 1_1 </option>
           <option>2. 2_1</option>
@@ -31,23 +32,36 @@
           <option>6. 2_3</option>
           <option>7. 1_4</option>
           <option>8. 2_4</option>
+        </select><br>
+        Row
+        <input type="number" id="row" name="row" min="1" max="47"><br>
+        Column
+        <select name="column">
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          <option>D</option>
         </select>
-      </form>
+        <br>
+        P<input type="checkbox" id="P" name="P">
+        N<input type="checkbox" id="N" name="N"><br>
+        <input type="submit" id="submit" name="submit">
+      </form><br>
       <table>
-        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         
 
     </table>
     <script>
       var tab=document.getElementsByTagName('table')[0];
-      for(let i=1;i<=10;i++)
+      for(let i=1;i<=47;i++)
       {
       tab.rows[0].cells[i].innerHTML=i;
-      tab.rows[i].cells[0].innerHTML=i;
+      //tab.rows[i].cells[0].innerHTML=i;
       }
       </script>
       
