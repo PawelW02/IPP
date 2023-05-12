@@ -136,4 +136,4 @@ def Main():
 
 #print(Main())
 #print(SwitchPosition(['N1', 3, 8]))
-print(SwPosToPXI([107, 14, 216, 14]))
+print(SwPosToPXI([101, 14, 216, 14]))
