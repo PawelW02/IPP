@@ -134,6 +134,15 @@ def Main():
 
     return PXI_array
 
+def Slot_1():
+    return Main()[0]
+def Slot_2():
+    return Main()[1]
+def Slot_3():
+    return Main[2]
+
+
 #print(Main())
 #print(SwitchPosition(['N1', 3, 8]))
-print(SwPosToPXI([101, 14, 216, 14]))
+#print(SwPosToPXI([101, 14, 216, 14])[0])
+print(Slot_1())

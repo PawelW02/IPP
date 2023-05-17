@@ -39,6 +39,9 @@
         border-radius: 2px;
         box-shadow: 5px 5px rgba(255, 255, 255, 0.5);
       }
+      select, input {
+        margin-right: 30%;
+      }
       #heading {
         position: relative;
         width: 200px;
@@ -46,6 +49,15 @@
         padding: 20px;
         margin-left: auto;
         /*margin-right: 40%;*/
+        border-radius: 2px;
+        box-shadow: 5px 5px rgba(255, 255, 255, 0.5);
+      }
+      div {
+        position: absolute;
+        margin-top: -410px;
+        margin-left: 245px;
+        background-color: rgba(255, 255, 255, 0.7); ;
+        padding: 20px;
         border-radius: 2px;
         box-shadow: 5px 5px rgba(255, 255, 255, 0.5);
       }
@@ -60,75 +72,79 @@
       <img src="img/wrota.png" id="heading">
 
       <form>
-        Layer
-        <select name="layer">
-          <option>1. 1_1 </option>
-          <option>2. 2_1</option>
-          <option>3. 1_2</option>
-          <option>4. 2_2</option>
-          <option>5. 1_3</option>
-          <option>6. 2_3</option>
-          <option>7. 1_4</option>
-          <option>8. 2_4</option>
+        Layer   
+        <select id="layer" name="layer">
+          <option value=1>1. 1_1 </option>
+          <option value=2>2. 2_1</option>
+          <option value=3>3. 1_2</option>
+          <option value=4>4. 2_2</option>
+          <option value=5>5. 1_3</option>
+          <option value=6>6. 2_3</option>
+          <option value=7>7. 1_4</option>
+          <option value=8>8. 2_4</option>
         </select><br>
-        Row
+        Row   
         <input type="number" id="row" name="row" min="1" max="47"><br>
-        Column
-        <select name="column">
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
-          <option>D</option>
+        Column  
+        <select id="column" name="column">
+          <option value=1>A</option>
+          <option value=2>B</option>
+          <option value=3>C</option>
+          <option value=4>D</option>
         </select>
         <br>
         P<input type="checkbox" id="P" name="P">
         N<input type="checkbox" id="N" name="N"><br>
-        <input type="submit" id="submit" name="submit">
+        <input type="button" value="submit" onclick="wstawDoTabeli()">
       </form><br>
-      <table>
+      <table id="table">
         <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
         <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     </table>
+    <div id="result"></div>
     <script>
       var tab=document.getElementsByTagName('table')[0];
       for(let i=1;i<=47;i++)
       {
       tab.rows[0].cells[i].innerHTML=i;
       }
-      var layer, row, column, p, n;
-      layer = document.getElementsByName('layer')[0].nodeValue;
+      
+      function wstawDoTabeli() {
+        //let x = document.getElementById("wartoscX").value;
+        let row = document.getElementById("row").value;
+        let col = document.getElementById("column").value;
+       // if (col == 'A'){col = 1};
+       // if (col == 'B'){col = 2};
+       // if (col == 'C'){col = 3};
+       // if (col == 'D'){col = 4};
+        let P = document.getElementById("P").value;
+        let N = document.getElementById("N").value;
+        //let tabela = document.getElementById("mojaTabela");
+        let rows = tab.getElementsByTagName("tr");
+        let layer = document.getElementById("layer").value;
+
+        //'{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":4, "y":0}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
+        let data = {"name":"N",layer, "ue":8, "ueAlias":"UE8","attenuation": 19.0,"x": row, "y": column};
+
+        // Konwersja danych na format JSON
+        let dataJSON = JSON.stringify(data);
+
+        // Wyświetlenie danych w elemencie <div>
+        let wynikDiv = document.getElementById("result");
+        wynikDiv.innerHTML += daneJSON;
+
+        if (row >= 0 && row < rows.length && col >= 0 && col < rows[row].cells.length) {
+          rows[row].cells[col].innerHTML = 'x';
+          console.log("Wartość została wstawiona do tabeli.");
+        } else {
+          console.log("Nieprawidłowe współrzędne.");
+        }
+    }
+
       </script>
-      
-      
-    <!--
-      <table>
-    <tr>
-      <td>
-        <a href="#">Kliknij mnie!</a>
-        <br>
-        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
-      </td>
-      <td>
-        <a href="#">Kliknij mnie!</a>
-        <br>
-        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#">Kliknij mnie!</a>
-        <br>
-        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
-      </td>
-      <td>
-        <a href="#">Kliknij mnie!</a>
-        <br>
-        <button onclick="alert('Kliknięto przycisk!')">Przycisk</button>
-      </td>
-    </tr>
-  </table> --> 
+
   </body>
   </html>
