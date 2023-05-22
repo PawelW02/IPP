@@ -2,7 +2,7 @@ import json
 import math
 
 
-with open(r"C:\Users\paawl\IPP\data.json", "r") as plik:
+with open(r"data.json", "r") as plik:
     jsonFile = plik.readline()
 
 #jsonFile = '{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":4, "y":0}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
