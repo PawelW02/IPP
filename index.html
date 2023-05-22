@@ -104,6 +104,7 @@
         Delay <input type="number" id="delay">ms<br>
         <input type="button" value="submit" onclick="wstawDoTabeli()">
       </form><br>
+      <div id="download"></div>
       <table id="table">
         <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
         <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -155,9 +156,15 @@
         } else {
           console.log("Nieprawidłowe współrzędne.");
         }
+        let blob = new Blob([dataJSON], { type: "application/json" });
+        let link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "data.json";
+        link.click();
     }
 
       </script>
+      
 
   </body>
   </html>
