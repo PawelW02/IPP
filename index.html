@@ -39,9 +39,9 @@
         border-radius: 2px;
         box-shadow: 5px 5px rgba(255, 255, 255, 0.5);
       }
-      select, input {
+      /*select, input {
         margin-right: 30%;
-      }
+      }*/
       #heading {
         position: relative;
         width: 200px;
@@ -54,12 +54,17 @@
       }
       div {
         position: absolute;
-        margin-top: -410px;
+        margin-top: -430px;
         margin-left: 245px;
         background-color: rgba(255, 255, 255, 0.7); ;
         padding: 20px;
         border-radius: 2px;
         box-shadow: 5px 5px rgba(255, 255, 255, 0.5);
+        max-height: 150px;
+        z-index: -1;
+      }
+      input {
+        max-width: 50px
       }
       *{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -84,17 +89,19 @@
           <option value=8>8. 2_4</option>
         </select><br>
         Row   
-        <input type="number" id="row" name="row" min="1" max="47"><br>
-        Column  
-        <select id="column" name="column">
+        <select id="row" name="row">
           <option value=1>A</option>
           <option value=2>B</option>
           <option value=3>C</option>
           <option value=4>D</option>
-        </select>
+        </select><br>
+        Column
+        <input type="number" id="column" name="column" min="1" max="47"><br>  
+        Attenuation <input type="number" id="attenuation">
         <br>
         P<input type="checkbox" id="P" name="P">
         N<input type="checkbox" id="N" name="N"><br>
+        Delay <input type="number" id="delay">ms<br>
         <input type="button" value="submit" onclick="wstawDoTabeli()">
       </form><br>
       <table id="table">
@@ -113,28 +120,34 @@
       }
       
       function wstawDoTabeli() {
-        //let x = document.getElementById("wartoscX").value;
         let row = document.getElementById("row").value;
         let col = document.getElementById("column").value;
-       // if (col == 'A'){col = 1};
-       // if (col == 'B'){col = 2};
-       // if (col == 'C'){col = 3};
-       // if (col == 'D'){col = 4};
-        let P = document.getElementById("P").value;
-        let N = document.getElementById("N").value;
-        //let tabela = document.getElementById("mojaTabela");
+        let atten = document.getElementById("attenuation").value;
+        let delay = document.getElementById("delay").value;
+        let P = document.getElementById("P").checked;
+        let N = document.getElementById("N").checked;
         let rows = tab.getElementsByTagName("tr");
         let layer = document.getElementById("layer").value;
 
         //'{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":4, "y":0}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
-        let data = {"name":"N",layer, "ue":8, "ueAlias":"UE8","attenuation": 19.0,"x": row, "y": column};
+        
+        let data = {"delay": delay,"layers": [{"name":"N"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": row, "y": col}, {"name":"P"+layer, "ue":8, "ueAlias":"UE8", "attenuation":atten, "x":row, "y":col}]};
 
+       /* if (P === true && N === false){
+          data += {"delay": delay,"layers": [{"name":"P"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": row, "y": col}]};
+        }
+        if (P === false && N === true){
+          data += {"delay": delay,"layers": [{"name":"N"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": row, "y": col}]};
+        }
+        if (P === true && N === true){
+          data += {"delay": delay,"layers": [{"name":"N"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": row, "y": col}, {"name":"P"+layer, "ue":8, "ueAlias":"UE8", "attenuation":atten, "x":row, "y":col}]};
+        }*/
         // Konwersja danych na format JSON
         let dataJSON = JSON.stringify(data);
 
         // Wyświetlenie danych w elemencie <div>
         let wynikDiv = document.getElementById("result");
-        wynikDiv.innerHTML += daneJSON;
+        wynikDiv.innerHTML += dataJSON;
 
         if (row >= 0 && row < rows.length && col >= 0 && col < rows[row].cells.length) {
           rows[row].cells[col].innerHTML = 'x';

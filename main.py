@@ -55,32 +55,55 @@ def SwitchPosition(array):
     column = array[1]
     row = array[2]
 
-    match layer:
-        case 1:
-            SW_10x_index = 101
-        case 2:
-            SW_10x_index = 102
-        case 3:
-            SW_10x_index = 103
-        case 4:
-            SW_10x_index = 104
-        case 5:
-            SW_10x_index = 105
-        case 6:
-            SW_10x_index = 106
-        case 7:
-            SW_10x_index = 107
-        case 8:
-            SW_10x_index = 108
+    if layer == 1:
+        SW_10x_index = 101
+    elif layer == 2:
+        SW_10x_index = 102
+    elif layer == 3:
+        SW_10x_index = 103
+    elif layer == 4:
+        SW_10x_index = 101
+    elif layer == 5:
+        SW_10x_index = 105
+    elif layer == 6:
+        SW_10x_index = 106
+    elif layer == 7:
+        SW_10x_index = 107    
+    elif layer == 8:
+        SW_10x_index = 108
+
+#    match layer:
+#        case 1:
+#            SW_10x_index = 101
+#        case 2:
+#            SW_10x_index = 102
+#        case 3:
+#            SW_10x_index = 103
+#        case 4:
+#            SW_10x_index = 104
+#        case 5:
+#            SW_10x_index = 105
+#        case 6:
+#            SW_10x_index = 106
+#        case 7:
+#            SW_10x_index = 107
+#        case 8:
+#            SW_10x_index = 108
 
     SW_10x_pos = (column - 1) % 4
-    match row:
-        case 1:
-            SW_10x_pos += 4
-        case 2:
-            SW_10x_pos += 8
-        case 3:
-            SW_10x_pos += 12
+    if row == 1:
+        SW_10x_pos += 4
+    elif row == 2:
+        SW_10x_pos += 8
+    elif row == 3:
+        SW_10x_pos += 12
+    #match row:
+    #    case 1:
+    #        SW_10x_pos += 4
+    #    case 2:
+    #        SW_10x_pos += 8
+    #    case 3:
+    #        SW_10x_pos += 12
 
     SW_20x_index = (column-1) % 4 + row * 4 + 200
     SW_20x_pos = (column-1) // 4 + 1
@@ -105,10 +128,10 @@ def SwPosToPXI(SwitchPosition):
     i3 = (SW_20x_index - 209) * 4
 
     if (SW_20x_index - 200) > 8:
-        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos - 1)[-4:]
+        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos - 1).replace("0b", "")[-4:]
     else:
-        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos - 1)[-4:]
-    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos - 1)[-4:]
+        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos - 1).replace("0b", "")[-4:]
+    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos - 1).replace("0b", "")[-4:]
 
     PXI_slot_1 = int("".join(PXI_slot_1),2)
     PXI_slot_2 = int("".join(PXI_slot_2),2)
@@ -139,10 +162,12 @@ def Slot_1():
 def Slot_2():
     return Main()[1]
 def Slot_3():
-    return Main[2]
+    return Main()[2]
 
 
 #print(Main())
 #print(SwitchPosition(['N1', 3, 8]))
 #print(SwPosToPXI([101, 14, 216, 14])[0])
 print(Slot_1())
+print(Slot_2())
+print(Slot_3())
