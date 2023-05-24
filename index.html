@@ -97,11 +97,11 @@
         </select><br>
         Column
         <input type="number" id="column" name="column" min="1" max="47"><br>  
-        Attenuation <input type="number" id="attenuation">
+        Attenuation <input type="number" id="attenuation"> db
         <br>
         P<input type="checkbox" id="P" name="P">
         N<input type="checkbox" id="N" name="N"><br>
-        Delay <input type="number" id="delay">ms<br>
+        Delay <input type="number" id="delay"> ms<br>
         <input type="button" value="submit" onclick="wstawDoTabeli()">
       </form><br>
       <div id="download"></div>
@@ -114,6 +114,9 @@
     </table>
     <div id="result"></div>
     <script>
+//const net = require('net');
+
+
       var tab=document.getElementsByTagName('table')[0];
       for(let i=1;i<=47;i++)
       {
@@ -121,6 +124,9 @@
       }
       
       function wstawDoTabeli() {
+
+
+        
         let row = document.getElementById("row").value;
         let col = document.getElementById("column").value;
         let atten = document.getElementById("attenuation").value;
@@ -132,7 +138,7 @@
 
         //'{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":4, "y":0}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
         
-        let data = {"delay": delay,"layers": [{"name":"N"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": row, "y": col}, {"name":"P"+layer, "ue":8, "ueAlias":"UE8", "attenuation":atten, "x":row, "y":col}]};
+        let data = {"delay": delay,"layers": [{"name":"N"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": col-1, "y": row-1}, {"name":"P"+layer, "ue":8, "ueAlias":"UE8", "attenuation":atten, "x":col-1, "y":row-1}]};
 
        /* if (P === true && N === false){
           data += {"delay": delay,"layers": [{"name":"P"+layer, "ue":8, "ueAlias":"UE8","attenuation": atten,"x": row, "y": col}]};
@@ -146,6 +152,7 @@
         // Konwersja danych na format JSON
         let dataJSON = JSON.stringify(data);
 
+        
         // Wyświetlenie danych w elemencie <div>
         let wynikDiv = document.getElementById("result");
         wynikDiv.innerHTML += dataJSON;
@@ -156,11 +163,35 @@
         } else {
           console.log("Nieprawidłowe współrzędne.");
         }
+
+
         let blob = new Blob([dataJSON], { type: "application/json" });
         let link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "data.json";
+        link.download = "data.wall";
         link.click();
+
+        /*const client = net.createConnection({ port: 5001 }, () => {
+          console.log('Połączono z serwerem TCP.');
+
+          // Wysłanie danych do serwera
+          client.write(dataJSON);
+
+          // Zamknięcie połączenia po wysłaniu danych
+          client.end();
+        });
+        client.on('data', (data) => {
+          console.log('Odpowiedź serwera:', data.toString());
+        });
+
+        client.on('end', () => {
+          console.log('Rozłączono z serwerem TCP.');
+        });
+
+        client.on('error', (error) => {
+          console.error('Błąd połączenia z serwerem TCP:', error);
+        });*/
+
     }
 
       </script>

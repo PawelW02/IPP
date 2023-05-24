@@ -2,7 +2,7 @@ import json
 import math
 
 
-with open(r"data.json", "r") as plik:
+with open(r"C:\Users\pawwozni\myproject\data.wall", "r") as plik:
     jsonFile = plik.readline()
 
 #jsonFile = '{"delay":500,"layers": [{"name":"N1", "ue":8, "ueAlias":"UE8","attenuation":20,"x":4, "y":0}, {"name":"P1", "ue":8, "ueAlias":"UE8", "attenuation":19.0, "x":0, "y":3}]}'
@@ -94,7 +94,7 @@ def SwitchPosition(array):
 #        case 8:
 #            SW_10x_index = 108
 
-    SW_10x_pos = (column - 1) % 4
+    SW_10x_pos = (column+1) % 4
     if row == 1:
         SW_10x_pos += 4
     elif row == 2:
@@ -109,8 +109,8 @@ def SwitchPosition(array):
     #    case 3:
     #        SW_10x_pos += 12
 
-    SW_20x_index = (column-1) % 4 + row * 4 + 200
-    SW_20x_pos = (column-1) // 4 + 1
+    SW_20x_index = (column+1) % 4 + row * 4 + 200
+    SW_20x_pos = (column+1) // 4 + 1
 
     return [SW_10x_index, SW_10x_pos, SW_20x_index, SW_20x_pos]
 
@@ -132,10 +132,14 @@ def SwPosToPXI(SwitchPosition):
     i3 = (SW_20x_index - 209) * 4
 
     if (SW_20x_index - 200) > 8:
-        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos - 1).replace("0b", "")[-4:]
+        PXI_slot_3[i3:i3+4] = bin(SW_20x_pos-1).replace("0b", "")[::-1]
     else:
-        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos - 1).replace("0b", "")[-4:]
-    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos - 1).replace("0b", "")[-4:]
+        PXI_slot_2[i2:i2+4] = bin(SW_20x_pos-1).replace("0b", "")[::-1]
+    PXI_slot_1[i1:i1+4] = bin(SW_10x_pos-1).replace("0b", "")[::-1]
+
+    PXI_slot_1 = PXI_slot_1[::-1]
+    PXI_slot_2 = PXI_slot_2[::-1]
+    PXI_slot_3 = PXI_slot_3[::-1]
 
     PXI_slot_1 = int("".join(PXI_slot_1),2)
     PXI_slot_2 = int("".join(PXI_slot_2),2)
@@ -159,6 +163,10 @@ def Main():
     SWpos = SwitchPosition(cords[1])
     PXI_array = SwPosToPXI(SWpos)
 
+    print("cords: ", cords)
+    print("SWpos: ", SWpos)
+    print("PXI: ", PXI_array)
+
     return PXI_array
 
 def Slot_1():
@@ -172,6 +180,7 @@ def Slot_3():
 #print(Main())
 #print(SwitchPosition(['N1', 3, 8]))
 #print(SwPosToPXI([101, 14, 216, 14])[0])
-print(Slot_1())
-print(Slot_2())
-print(Slot_3())
+#print(Slot_1())
+#print(Slot_2())
+#print(Slot_3())
+Main()
