@@ -115,14 +115,14 @@ def SwitchPosition(array):
     return [SW_10x_index, SW_10x_pos, SW_20x_index, SW_20x_pos]
 
 
-def SwPosToPXI(SwitchPosition):
-    PXI_slot_1 = []
-    PXI_slot_2 = [] 
-    PXI_slot_3 = []
-    for i in range(32):
-        PXI_slot_1.append('0')
-        PXI_slot_2.append('0')
-        PXI_slot_3.append('0')
+def SwPosToPXI(CurrentState, SwitchPosition):
+    PXI_slot_1 = ToBinary(CurrentState[0])
+    PXI_slot_2 = ToBinary(CurrentState[1])
+    PXI_slot_3 = ToBinary(CurrentState[2])
+    #for i in range(32):
+    #    PXI_slot_1.append('0')
+    #    PXI_slot_2.append('0')
+    #    PXI_slot_3.append('0')
     SW_10x_index = SwitchPosition[0] 
     SW_10x_pos = SwitchPosition[1]
     SW_20x_index = SwitchPosition[2]
@@ -153,28 +153,35 @@ def ToBinary(number):
     bin_num = str(bin(number).replace("0b", ""))
 
     for i in bin_num:
-        bin_arr.append(int(i))
+        bin_arr.append(i)
 
-    return bin_arr
+    return bin_arr#[::-1]
+
+def NumberOfPoints():
+    plik = open(r"C:\Users\pawwozni\myproject\data.wall", "r")
+    x = len(plik.readlines())
+    plik.close()
+    return x
 
 
-def Main():
+def Main(array):
     cords = ParseJSON(data)
     SWpos = SwitchPosition(cords[1])
-    PXI_array = SwPosToPXI(SWpos)
+    PXI_array = SwPosToPXI(array, SWpos)
 
     print("cords: ", cords)
     print("SWpos: ", SWpos)
     print("PXI: ", PXI_array)
+    print("Number:", NumberOfPoints())
 
     return PXI_array
 
-def Slot_1():
-    return Main()[0]
-def Slot_2():
-    return Main()[1]
-def Slot_3():
-    return Main()[2]
+def Slot_1(array):
+    return Main(array)[0]
+def Slot_2(array):
+    return Main(array)[1]
+def Slot_3(array):
+    return Main(array)[2]
 
 
 #print(Main())
@@ -183,4 +190,4 @@ def Slot_3():
 #print(Slot_1())
 #print(Slot_2())
 #print(Slot_3())
-Main()
+Main([32,64,128])
